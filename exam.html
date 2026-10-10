@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linux Administrator Practical Assessment</title>
+<style>
+:root{--bg:#0b1220;--panel:#111c30;--panel2:#16243b;--line:#2a3a55;--text:#eef4ff;--muted:#a9b8d0;--blue:#5ba7ff;--green:#46d6a0;--orange:#ffbf69;--red:#ff7777}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#08101d,#101c31 55%,#0b1220);color:var(--text);font:15px/1.55 system-ui,-apple-system,Segoe UI,Arial,sans-serif}
+header{padding:24px 5%;border-bottom:1px solid var(--line);background:#0a1322dd;position:sticky;top:0;z-index:5;backdrop-filter:blur(12px)}
+.top{max-width:1200px;margin:auto;display:flex;justify-content:space-between;gap:20px;align-items:center}.brand{display:flex;gap:12px;align-items:center}.logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#3d8cff,#8c68ff);display:grid;place-items:center;font-weight:900;font-size:19px}.brand h1{font-size:18px;margin:0}.brand p{margin:2px 0 0;color:var(--muted);font-size:12px}
+.timer{border:1px solid #36557b;background:#132640;border-radius:12px;padding:9px 15px;min-width:120px;text-align:center}.timer small{display:block;color:var(--muted);font-size:11px}.timer strong{font-size:22px;letter-spacing:1px}
+main{max-width:1200px;margin:26px auto;padding:0 20px}.hero{padding:26px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(120deg,#152744,#121c30);margin-bottom:20px}.eyebrow{color:#8ec3ff;text-transform:uppercase;font-size:11px;letter-spacing:2px;font-weight:800}.hero h2{font-size:clamp(24px,3vw,36px);margin:8px 0}.hero p{color:var(--muted);max-width:800px;margin:0}
+.info-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}.info{background:#0e192a;border:1px solid var(--line);padding:13px;border-radius:12px}.info span{display:block;color:var(--muted);font-size:12px}.info b{font-size:19px}
+.layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:20px;align-items:start}.sidebar,.task,.studentbox{background:var(--panel);border:1px solid var(--line);border-radius:16px}.sidebar{padding:16px;position:sticky;top:112px}.sidebar h3{font-size:14px;margin:0 0 12px}.progressbar{height:7px;border-radius:9px;background:#263650;overflow:hidden;margin:8px 0 15px}.progressbar div{height:100%;width:0;background:linear-gradient(90deg,#418cff,#47d9aa);transition:width .2s}.navtask{display:flex;gap:10px;align-items:center;width:100%;text-align:left;border:1px solid transparent;border-radius:10px;padding:9px;background:transparent;color:var(--muted);cursor:pointer;margin:3px 0}.navtask .num{width:27px;height:27px;display:grid;place-items:center;border-radius:8px;background:#23334d;color:#fff;font-size:12px}.navtask.active{border-color:#4a8dd9;background:#152b48;color:white}.navtask.done .num{background:#14694f}.side-note{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px;margin-top:14px}
+.content{min-width:0}.studentbox{padding:18px;margin-bottom:16px}.studentbox label{font-size:12px;color:var(--muted);display:block;margin-bottom:5px}.studentbox input{width:100%;max-width:440px;background:#0b1525;color:white;border:1px solid #344660;border-radius:9px;padding:11px;font:inherit}
+.task{padding:23px;margin-bottom:16px}.taskhead{display:flex;justify-content:space-between;gap:12px;align-items:start}.tag{font-size:11px;letter-spacing:.5px;font-weight:800;padding:5px 9px;border-radius:7px;background:#1b3556;color:#a9d3ff}.marks{font-size:12px;color:var(--green);font-weight:800}.task h3{font-size:23px;margin:12px 0 5px}.task p{color:var(--muted);margin:5px 0 14px}.scenario{background:#0b1627;border-left:3px solid var(--blue);border-radius:0 9px 9px 0;padding:13px 15px;margin:14px 0}.scenario strong{color:#d7e8ff}.answerlabel{display:block;font-size:13px;font-weight:700;margin:15px 0 7px}.task textarea{width:100%;min-height:104px;resize:vertical;background:#091321;border:1px solid #30425d;color:#eff6ff;border-radius:10px;padding:12px;font:13px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace}.task textarea:focus,.studentbox input:focus{outline:2px solid #4a8dd9;border-color:transparent}.hint{font-size:12px;color:#91a4bf!important;margin-top:7px!important}.actions{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:18px 0 35px}.btn{border:0;border-radius:10px;padding:12px 18px;font-weight:800;cursor:pointer;font:inherit}.primary{background:linear-gradient(135deg,#438fff,#7669ff);color:white}.secondary{background:#1b2a41;border:1px solid #354a68;color:#e8f1ff}.submit{background:linear-gradient(135deg,#18b981,#138c78);color:white}.notice{font-size:12px;color:var(--muted);max-width:760px}.result{display:none;border:1px solid #27785e;background:#0d2a25;border-radius:14px;padding:22px;margin:20px 0}.validate-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}.feedback{display:none;margin-top:14px;padding:15px;border:1px solid #354a68;background:#0b1627;border-radius:10px}.feedback h4{margin:0 0 8px}.feedback ul{margin:8px 0;padding-left:20px}.feedback .good{color:var(--green)}.feedback .bad{color:var(--orange)}.feedback code{white-space:pre-wrap;overflow-wrap:anywhere;color:#d6e8ff}.taskscore{font-weight:800;color:var(--green)}.result h2{margin-top:0}.score{font-size:32px;font-weight:900;color:var(--green)}.rubric{color:var(--muted);font-size:13px}
+footer{text-align:center;color:#788ba7;padding:25px;font-size:12px}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.sidebar{position:static}.info-grid{grid-template-columns:repeat(2,1fr)}header{position:static}.top{align-items:flex-start}.brand h1{font-size:15px}.task{padding:17px}}
+
+.certificate{display:none;position:relative;max-width:1100px;margin:24px auto;padding:54px 58px;min-height:620px;background:#fff;color:#222;border:8px double #b8b8b8;overflow:hidden;font-family:Arial,Helvetica,sans-serif}
+.certificate:before{content:"";position:absolute;inset:18px;border:1px solid #d6d6d6;pointer-events:none}
+.cert-brand{font-size:22px;font-weight:800;color:#222;letter-spacing:-.5px;margin-bottom:54px}
+.cert-brand span{color:#c90000}
+.cert-small{font-size:13px;color:#333;margin:0 0 14px}
+.cert-name{font-size:38px;line-height:1.2;color:#c90000;font-weight:800;text-transform:uppercase;margin:18px 0 22px;overflow-wrap:anywhere}
+.cert-title{font-size:25px;color:#c90000;font-weight:800;margin:30px 0 12px;text-transform:uppercase}
+.cert-course{font-size:16px;font-weight:700;margin-top:18px}
+.cert-footer{position:absolute;left:58px;right:58px;bottom:42px;display:flex;justify-content:space-between;gap:20px;align-items:end;font-size:11px;color:#333}
+.cert-seal{border:2px solid #aaa;padding:12px;text-align:center;font-weight:800;letter-spacing:1px;min-width:125px}
+.cert-sign{border-top:1px solid #555;padding-top:8px;width:280px}
+@media print{
+  body{background:#fff!important;color:#111!important}
+  body *{visibility:hidden!important}
+  #certificate,#certificate *{visibility:visible!important}
+  #certificate{display:block!important;position:absolute;left:0;top:0;width:100%;max-width:none;min-height:0;height:7.5in;margin:0;padding:48px 52px;border:8px double #b8b8b8;box-shadow:none;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+  #certificate:before{inset:14px}
+  .cert-footer{left:52px;right:52px;bottom:28px}
+  @page{size:landscape;margin:0.25in}
+}
+
+</style>
+</head>
+<body>
+<header><div class="top"><div class="brand"><div class="logo">LX</div><div><h1>Linux Administrator Assessment</h1><p>RHCSA practice • Task-based practical exam</p></div></div><div class="timer"><small>TIME REMAINING</small><strong id="timer">60:00</strong></div></div></header>
+<main>
+<section class="hero"><div class="eyebrow">Practical examination</div><h2>Linux System Administration</h2><p>Complete each real-world administration task by writing the commands you would run on a RHEL 9 / CentOS Stream 9 system. This is a practice assessment inspired by RHCSA task formats, not an official Red Hat exam.</p>
+<div class="info-grid"><div class="info"><span>Duration</span><b>60 min</b></div><div class="info"><span>Tasks</span><b>10</b></div><div class="info"><span>Total marks</span><b>50</b></div><div class="info"><span>Question type</span><b>Practical</b></div></div></section>
+<div class="layout">
+<aside class="sidebar"><h3>EXAM TASKS</h3><div class="progressbar"><div id="progress"></div></div><div id="tasknav"></div><div class="side-note">Write commands, select Validate this task to receive partial marks and corrections, then fix mistakes and validate again. This checker uses command patterns; it does not run commands on a Linux server.</div></aside>
+<section class="content">
+<div class="studentbox"><label for="student">STUDENT FULL NAME</label><input id="student" placeholder="Enter your name" autocomplete="name"><p class="hint">Exam environment: RHEL 9 / CentOS Stream 9. Assume you have appropriate administrator privileges when needed.</p></div>
+<div id="tasks"></div>
+<div class="actions"><button class="btn secondary" id="prev">← Previous task</button><button class="btn primary" id="next">Next task →</button><button class="btn submit" id="submit">Submit exam</button></div>
+<div class="result" id="result"><h2>Exam submitted</h2><div class="score" id="score"></div><p id="resulttext"></p><p class="rubric">The checker awards partial marks based on recognized command patterns. It does not execute commands, and valid alternative syntax may need instructor review.</p><button class="btn secondary" onclick="printCertificate()">Generate & Print Certificate</button></div>
+
+<div class="certificate" id="certificate" aria-label="Linux practical assessment certificate">
+  <div class="cert-brand"><span>LINUX</span> ADMINISTRATOR ACADEMY</div>
+  <p class="cert-small">This is to certify that</p>
+  <div class="cert-name" id="certName">STUDENT NAME</div>
+  <p class="cert-small">has successfully completed the practical assessment requirements and is awarded the certificate of</p>
+  <div class="cert-title">Linux System Administrator</div>
+  <div class="cert-course">RHCSA Practical Assessment · RHEL 9 / CentOS Stream 9</div>
+  <p class="cert-small" style="margin-top:18px">Assessment result: <strong id="certScore">0 / 50 marks</strong></p>
+  <p class="cert-small">This certificate recognizes completion of a classroom practice assessment. It is not an official Red Hat certification.</p>
+  <div class="cert-footer">
+    <div class="cert-sign"><strong id="certNameSign">Student</strong><br>Candidate</div>
+    <div><strong id="certDate">DATE</strong><br>DATE OF COMPLETION</div>
+    <div class="cert-seal">LINUX<br>ADMINISTRATION<br><small>PRACTICAL ASSESSMENT</small></div>
+  </div>
+</div>
+
+<p class="notice">Important: Do not run commands on a production server. These are exam answer fields only; the website does not execute commands.</p>
+</section></div></main><footer>Linux Administrator Assessment · Practice material for classroom use</footer>
+<script>
+const tasks = [
+{title:"Files and directories",topic:"FILE SYSTEM",marks:5,scenario:"Create the directory /opt/linux_exam and inside it create three empty files named notes.txt, users.txt and network.txt. Show the command(s) you would use to verify the result.",prompt:"Write the commands in the order you would run them.",hint:"Consider mkdir, touch and ls."},
+{title:"Permissions and ownership",topic:"PERMISSIONS",marks:5,scenario:"The file /opt/linux_exam/notes.txt must be owned by user trainee and group linuxadmins. Set permissions so the owner can read/write, the group can read, and others have no access.",prompt:"Write the commands to change ownership and permissions.",hint:"Consider chown and chmod. Numeric or symbolic permissions are acceptable."},
+{title:"User and group administration",topic:"USERS & GROUPS",marks:5,scenario:"Create a group named linuxadmins. Create a user named trainee with a home directory and make linuxadmins the user's supplementary group.",prompt:"Write the commands. Include a verification command.",hint:"Consider groupadd, useradd and id."},
+{title:"Networking configuration checks",topic:"NETWORKING",marks:5,scenario:"A user reports that the server has no network connectivity. You need to inspect IP addresses, routing information and test connectivity to 8.8.8.8.",prompt:"Write the commands you would use to inspect the network and test connectivity.",hint:"Consider ip, ip route and ping. This task asks for inspection, not permanent network changes."},
+{title:"Schedule a cron job",topic:"CRON JOBS",marks:5,scenario:"Configure the root user's cron job to append the current date and time to /var/log/daily-check.log every day at 2:30 AM.",prompt:"Write the command to edit root's crontab and the cron line itself.",hint:"Cron fields are minute, hour, day of month, month, day of week."},
+{title:"Create a compressed backup",topic:"BACKUP",marks:5,scenario:"Create a gzip-compressed tar archive of /etc and save it as /root/etc-backup.tar.gz. Then show how you would list the archive contents without extracting it.",prompt:"Write the backup command and the verification command.",hint:"Consider tar with create, gzip, file and verbose options."},
+{title:"Use xz compression",topic:"COMPRESSION",marks:5,scenario:"Compress the file /var/tmp/report.log using xz. Then show the command to decompress it again.",prompt:"Write the commands for compression and decompression.",hint:"Consider xz and xz -d. Know that compression normally replaces the original file."},
+{title:"Create SSH keys",topic:"SSH",marks:5,scenario:"As user trainee, generate an SSH key pair using the Ed25519 algorithm. Save it in the default location and verify that the public key file exists.",prompt:"Write the command and a verification command.",hint:"Consider ssh-keygen -t ed25519 and ls."},
+{title:"Inspect disk space and files",topic:"FILES & SYSTEM",marks:5,scenario:"You need to check free disk space in human-readable format and find all files under /var/tmp that end in .log.",prompt:"Write one command for disk space and one command to find the log files.",hint:"Consider df -h and find."},
+{title:"Archive and extract with tar",topic:"BACKUP",marks:5,scenario:"Create an uncompressed tar archive named /root/home-backup.tar containing /home. Then show the command to extract that archive under /tmp/restore.",prompt:"Write the archive creation command and the extraction command.",hint:"Consider tar -cvf and tar -xvf with -C for the destination."}
+];
+let current=0, remaining=3600, interval=null, submitted=false;
+const tasksEl=document.getElementById('tasks'), navEl=document.getElementById('tasknav');
+const expected=[
+ {checks:[['Create the target directory',/mkdir\s+(-p\s+)?\/opt\/linux_exam/i],['Create all three files',/(touch[^\n]*(notes\.txt)[^\n]*(users\.txt)[^\n]*(network\.txt)|touch[^\n]*(users\.txt)[^\n]*(notes\.txt)[^\n]*(network\.txt)|touch[^\n]*(network\.txt)[^\n]*(notes\.txt)[^\n]*(users\.txt))/i],['Verify the files',/(ls|find)\s+[^\n]*\/opt\/linux_exam/i]],correct:'mkdir -p /opt/linux_exam\ntouch /opt/linux_exam/notes.txt /opt/linux_exam/users.txt /opt/linux_exam/network.txt\nls -l /opt/linux_exam'},
+ {checks:[['Set owner and group',/chown\s+(trainee:linuxadmins|trainee\.linuxadmins)\s+\/opt\/linux_exam\/notes\.txt/i],['Set permissions to 640 (or equivalent)',/(chmod\s+640\s+\/opt\/linux_exam\/notes\.txt|chmod\s+u=rw,g=r,o=\s+\/opt\/linux_exam\/notes\.txt)/i]],correct:'chown trainee:linuxadmins /opt/linux_exam/notes.txt\nchmod 640 /opt/linux_exam/notes.txt'},
+ {checks:[['Create the group',/groupadd\s+linuxadmins/i],['Create trainee with a home directory and supplementary group',/useradd\s+[^\n]*(-m[^\n]*-G\s*linuxadmins|-G\s*linuxadmins[^\n]*-m)[^\n]*\btrainee\b|useradd\s+-m\s+-G\s+linuxadmins\s+trainee/i],['Verify group membership',/\bid\s+trainee\b|getent\s+group\s+linuxadmins/i]],correct:'groupadd linuxadmins\nuseradd -m -G linuxadmins trainee\nid trainee'},
+ {checks:[['Inspect IP addresses',/ip\s+(addr|address|a)(\s|$)/im],['Inspect routing table',/ip\s+route(\s|$)/im],['Test 8.8.8.8 connectivity',/ping\s+(-c\s+\d+\s+)?8\.8\.8\.8/i]],correct:'ip addr show\nip route\nping -c 4 8.8.8.8'},
+ {checks:[['Edit root crontab',/crontab\s+-e/i],['Use 2:30 AM daily schedule',/(^|\s)30\s+2\s+\*\s+\*\s+\*/m],['Append date/time to the required log',/date[^\n]*>>\s*\/var\/log\/daily-check\.log/i]],correct:'crontab -e\n# Add this line:\n30 2 * * * /usr/bin/date >> /var/log/daily-check.log'},
+ {checks:[['Create gzip tar archive from /etc',/tar\s+[^\n]*c[^\n]*z[^\n]*f\s+\/root\/etc-backup\.tar\.gz\s+\/etc|tar\s+[^\n]*czf\s+\/root\/etc-backup\.tar\.gz\s+\/etc/i],['List archive contents without extracting',/tar\s+[^\n]*t[^\n]*f\s+\/root\/etc-backup\.tar\.gz/i]],correct:'tar -czvf /root/etc-backup.tar.gz /etc\ntar -tzvf /root/etc-backup.tar.gz'},
+ {checks:[['Compress the requested file with xz',/xz\s+\/var\/tmp\/report\.log/i],['Show decompression command',/xz\s+(-d|--decompress)\s+\/var\/tmp\/report\.log\.xz|unxz\s+\/var\/tmp\/report\.log\.xz/i]],correct:'xz /var/tmp/report.log\nxz -d /var/tmp/report.log.xz'},
+ {checks:[['Generate an Ed25519 key pair',/ssh-keygen\s+[^\n]*-t\s+ed25519/i],['Verify the public key file',/(ls|test|stat)\s+[^\n]*id_ed25519\.pub|test\s+-f\s+[^\n]*id_ed25519\.pub/i]],correct:'su - trainee\nssh-keygen -t ed25519\nls -l ~/.ssh/id_ed25519.pub'},
+ {checks:[['Check disk space in human-readable format',/df\s+(-h|[^\n]*\s-h\b)/i],['Find .log files under /var/tmp',/find\s+\/var\/tmp\s+[^\n]*-name\s+["']?\*\.log["']?/i]],correct:'df -h\nfind /var/tmp -type f -name "*.log"'},
+ {checks:[['Create an uncompressed tar archive of /home',/tar\s+[^\n]*c[^\n]*f\s+\/root\/home-backup\.tar\s+\/home|tar\s+-cvf\s+\/root\/home-backup\.tar\s+\/home/i],['Extract into /tmp/restore using -C',/tar\s+[^\n]*x[^\n]*f\s+\/root\/home-backup\.tar[^\n]*-C\s+\/tmp\/restore|tar\s+[^\n]*x[^\n]*f\s+\/root\/home-backup\.tar\s+(-C\s+\/tmp\/restore|[^\n]*\/tmp\/restore)/i]],correct:'mkdir -p /tmp/restore\ntar -cvf /root/home-backup.tar /home\ntar -xvf /root/home-backup.tar -C /tmp/restore'}
+];
+const validated={};
+function render(){tasksEl.innerHTML='';navEl.innerHTML='';tasks.forEach((t,i)=>{const nav=document.createElement('button');nav.className='navtask'+(i===current?' active':'');nav.innerHTML='<span class="num">'+(i+1)+'</span><span>'+t.title+'</span>';nav.onclick=()=>show(i);nav.id='nav'+i;navEl.appendChild(nav);const card=document.createElement('article');card.className='task';card.id='task'+i;card.style.display=i===current?'block':'none';card.innerHTML='<div class="taskhead"><span class="tag">'+t.topic+'</span><span class="marks">'+t.marks+' MARKS</span></div><h3>Task '+(i+1)+': '+t.title+'</h3><p>'+t.prompt+'</p><div class="scenario"><strong>Scenario</strong><br>'+t.scenario+'</div><label class="answerlabel" for="answer'+i+'">YOUR COMMANDS / ANSWER</label><textarea id="answer'+i+'" placeholder="Type the Linux commands you would run..." spellcheck="false"></textarea><p class="hint">'+t.hint+'</p><div class="validate-row"><button class="btn primary" id="validate'+i+'" type="button">Validate this task</button><span class="taskscore" id="taskscore'+i+'">Not checked yet</span></div><div class="feedback" id="feedback'+i+'" aria-live="polite"></div>';tasksEl.appendChild(card);document.getElementById('answer'+i).addEventListener('input',updateProgress);document.getElementById('validate'+i).onclick=()=>validateTask(i);});updateProgress();}
+function show(i){if(submitted)return;current=Math.max(0,Math.min(tasks.length-1,i));tasks.forEach((t,j)=>{document.getElementById('task'+j).style.display=j===current?'block':'none';document.getElementById('nav'+j).classList.toggle('active',j===current)});document.getElementById('prev').disabled=current===0;document.getElementById('next').disabled=current===tasks.length-1;}
+function updateProgress(){let n=0;tasks.forEach((t,i)=>{let filled=document.getElementById('answer'+i).value.trim().length>0;if(filled)n++;document.getElementById('nav'+i).classList.toggle('done',!!validated[i])});document.getElementById('progress').style.width=(n/tasks.length*100)+'%';}
+function validateTask(i){const answer=document.getElementById('answer'+i).value.trim();const fb=document.getElementById('feedback'+i);const rubric=expected[i];const results=rubric.checks.map(c=>({label:c[0],ok:!!answer&&c[1].test(answer)}));const got=results.filter(x=>x.ok).length;const mark=+(tasks[i].marks*got/results.length).toFixed(1);validated[i]={mark,max:tasks[i].marks,results};fb.style.display='block';fb.innerHTML='<h4>'+(got===results.length?'Task passed':'Review and correct your answer')+'</h4><p><strong>Self-evaluation:</strong> '+mark+' / '+tasks[i].marks+' marks</p><ul>'+results.map(r=>'<li class="'+(r.ok?'good':'bad')+'">'+(r.ok?'✓ ':'✗ ')+r.label+(r.ok?' — detected':' — missing or not recognized')+'</li>').join('')+'</ul>'+(got===results.length?'<p class="good">All expected command patterns were detected. Continue to the next task.</p>':'<p>Compare your answer with this reference solution, correct the missing parts in your answer box, then select <strong>Validate this task</strong> again.</p><p><strong>Reference solution:</strong></p><code>'+rubric.correct.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</code>');document.getElementById('taskscore'+i).textContent=mark+' / '+tasks[i].marks+' marks';updateProgress();}
+function tick(){if(submitted)return;remaining--;let m=Math.floor(remaining/60),s=remaining%60;document.getElementById('timer').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');if(remaining<=300)document.getElementById('timer').style.color='var(--orange)';if(remaining<=0)submitExam(true)}
+function submitExam(auto=false){if(submitted)return;let count=0,total=0;tasks.forEach((t,i)=>{if(document.getElementById('answer'+i).value.trim())count++;if(!validated[i])validateTask(i);total+=validated[i].mark;});let name=document.getElementById('student').value.trim()||'Student';if(!auto&&!confirm('Submit your exam now, '+name+'? You answered '+count+' of '+tasks.length+' tasks.'))return;submitted=true;clearInterval(interval);document.getElementById('result').style.display='block';document.getElementById('score').textContent=total.toFixed(1)+' / 50 marks';document.getElementById('resulttext').textContent=name+', your self-evaluation is complete. '+count+' of '+tasks.length+' tasks attempted. Review each task’s feedback for missing commands and reference corrections.';document.querySelector('.rubric').textContent='This is a browser-based pattern checker, not a Linux execution environment. It awards partial marks for recognized command patterns; valid alternative syntax may not be recognized. Instructor review is recommended before final grading.';document.querySelectorAll('textarea,input,#prev,#next,#submit').forEach(el=>el.disabled=true);document.querySelectorAll('[id^="validate"]').forEach(el=>el.disabled=true);document.getElementById('result').scrollIntoView({behavior:'smooth'});}
+
+function printCertificate(){
+  const name=(document.getElementById('student').value||'Student').trim();
+  const score=document.getElementById('score').textContent||'0 / 50 marks';
+  document.getElementById('certName').textContent=name;
+  document.getElementById('certNameSign').textContent=name;
+  document.getElementById('certScore').textContent=score;
+  document.getElementById('certDate').textContent=new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'}).toUpperCase();
+  document.getElementById('certificate').style.display='block';
+  window.print();
+}
+
+document.getElementById('prev').onclick=()=>show(current-1);document.getElementById('next').onclick=()=>show(current+1);document.getElementById('submit').onclick=()=>submitExam(false);render();show(0);interval=setInterval(tick,1000);
+</script>
+</body></html>
